@@ -1,0 +1,84 @@
+# Tarefa: roteiro do advviral ({MODO}, {DATA})
+
+Você monta o roteiro de um vídeo 9:16 do **advviral**: o que os maiores advogados e juristas do Brasil no YouTube (consumidor, previdência, trabalho, família, imóvel, penal) disseram e que serve para a vida das pessoas, com números grandes, fonte na tela, o Nei comentando e CTA do inema.club no fim. Trabalhe só com os arquivos abaixo. Não use a internet nem outra API.
+
+## Entrada
+- Pasta da edição: `{ED}`. Escreva nela apenas os arquivos pedidos.
+- Vídeos do período: `{ED}/videos.tsv`, com as colunas handle, data, id, duração em segundos, views, canal e título.
+- Transcrições: `{TX}/<id>/transcript.txt`. Só existem as dos ids listados em `{ED}/transcritos.txt`.
+- Canais e ranking: `{RAIZ}/canais.json`.
+- Edição de referência (do finviral, projeto irmão, aprovada pelo Nei). Copie SÓ o formato dela; o assunto é outro:
+  - `{RAIZ}/edicoes/referencia/roteiro.json`
+  - `{RAIZ}/edicoes/referencia/base.md`
+- Esquema do roteiro: docstring de `{RAIZ}/motor/gerar_cena.py`.
+
+## Modo
+{INSTRUCAO_MODO}
+
+## Saída
+Grave TODOS estes arquivos, ou só o `SEM_PAUTA.txt`.
+
+### 1. `{ED}/base.md`
+Uma tabela com as colunas `| Número usado | Quem disse | Vídeo | Data | Trecho da transcrição |`. Regras:
+- Uma linha por número ou fato que aparece no vídeo.
+- **Vídeo** é o id do YouTube, exatamente como está no videos.tsv.
+- **Trecho** fica entre aspas retas `"..."` e é cópia LITERAL de um pedaço contínuo do transcript.txt desse id: de 6 a 30 palavras, sem editar nem juntar pedaços.
+- Um script confere cada trecho. Se algum não estiver no transcript, o vídeo é descartado.
+
+### 2. `{ED}/roteiro.json`
+Mesmo formato da edição de referência:
+- `marca`: "INEMA · RADAR DIREITO".
+- `selo`: período, por exemplo "YOUTUBE · 09/10" ou "YOUTUBE · 03 A 08/10".
+- `avatar`: `{"img": "img/avatar-teste.jpg", "tag": "<b>NEI MALDANER</b> · INEMA"}`.
+- `hero` é o quadro 0. Leva:
+  - a data `{DATA_BR}` com o dia da semana;
+  - o tema;
+  - o número mais forte, em `t2`;
+  - uma linha `t3`;
+  - um `t4` curto;
+  - os rostos (miniaturas `img/<id>.jpg` dos vídeos citados).
+
+Regras das `falas`:
+- **Abertura (f1):** a frase-choque com o número mais forte. O número já está no `hero`: f1 NÃO leva `numero`, `ficha`, `caixa` nem `carimbo`. Nunca abrir com "Neste vídeo", "Imagine" ou "Olá".
+- **Explicar, não listar (o Nei reprovou o semanal de 10/10/2026: seis assuntos em fragmentos, "assunto muito mal explicado").** Poucos assuntos, cada um contado inteiro, em três passos e em falas seguidas:
+  1. **contexto**: o que é a coisa e por que alguém se importa (ex.: "o BPC é o benefício de um salário mínimo pago pelo INSS a idoso ou pessoa com deficiência de baixa renda, mesmo sem ter contribuído");
+  2. **o que ELE disse**: o número ou o argumento, atribuído;
+  3. **o que isso muda pra quem assiste**: a consequência, em linguagem de gente ("ou seja: se o banco negar, você pode reclamar").
+  - Todo termo técnico é explicado na própria fala na primeira vez em que aparece: usucapião, ITBI, justa causa, tema de repercussão geral. Se não der pra explicar em meia frase, corte.
+  - Nada solto: número sem dizer o que significa, polêmica sem contar o que foi dito e a quem, dado que não se liga ao assunto. Cada fala continua a anterior; quem só ouve tem que entender sem ver a tela.
+  - Na dúvida entre mais um assunto e explicar melhor o que já entrou, explique melhor.
+- **Uma ideia por fala.** Cada influenciador citado ganha `ficha` (nome, canal com "dd/mm · N mil views", `rk` do canais.json, foto `img/<id>.jpg`) e `fundo` `img/<id>.jpg`.
+- **Números:**
+  - Usar `numero` (contador grande), `grafico` (só se houver série real dita no vídeo), `caixa` com citação literal ou itens, e `carimbo` ("POLÊMICA", "ALERTA", "MUDOU A LEI", "DECISÃO DO STF", "DEPENDE DO CASO") quando couber.
+  - Todo número mostrado está no base.md.
+- **`fonte`:** "<b>Fonte:</b> Canal, YouTube, dd/mm/aaaa · “título curto”".
+- **Texto falado (`fala`), no tom do Nei:**
+  - Tratar por "você" (nunca "tu", "teu", "te prepara"; o Nei pediu em 10/10/2026), frases curtas.
+  - Escrever TODOS os números e anos por extenso, sem algarismo: "sete vírgula sete por cento", "dois mil e vinte e oito".
+  - Siglas lidas como se fala ("ésse tê éfe" para STF, "í ene ésse ésse" para INSS, "ó á bê" para OAB). Sem emoji.
+- **`em` (âncora):** uma palavra comum que está na fala, nunca um número.
+- **Penúltima fala:** gancho de comentário. É uma pergunta sobre o tema ("E você? ... Comente aqui"), com `"limpa": true`. A `fonte` dela é "<b>Não substitui orientação de um advogado.</b> Resumo do que os influenciadores disseram, com a fonte de cada fato".
+- **Última fala:** CTA com `fundo` "img/cta.jpg" e `"limpa": true`.
+  - Fala: uma ponte curta do tema para a IA, mais "Se prepare pra gestão de agentes de IA: curso gratuito no inema ponto club."
+  - O CTA é SEMPRE só o inema.club: não citar canal do YouTube, Inema Pro, "vídeo longo", "se inscreva" nem outro destino.
+  - `hero` igual ao da referência (GESTÃO DE / AGENTES DE IA / img/cta.jpg).
+  - `caixa` tipo cta com "INEMA.CLUB".
+- **Direito (regras duras):**
+  - Relatar e atribuir sempre ("segundo ele", "ela explica"). Nunca vira conselho do Nei.
+  - Nada de "faça X" como instrução jurídica para o caso de quem assiste: direito depende do caso. Quando a fala disser o que alguém pode fazer, fechar com "cada caso é um caso: procure um advogado ou a defensoria pública".
+  - Lei, artigo, prazo, valor e número de decisão (tema do STF, súmula) só entram se estiverem no transcript, iguais ao que ele disse; nunca completar de memória. Proposta, projeto de lei ou "pode mudar" não é lei em vigor: a fala diz que é proposta.
+  - Promessa de causa ganha, "dinheiro esquecido" sem fonte ou atalho para não pagar o que é devido NÃO vira manchete. Na dúvida, fica de fora.
+  - Política (eleição, governo, STF, ministros): atribuída, sem lado, sem opinião do Nei. Caso criminal com pessoa real: só o que é público e atribuído, sem chamar ninguém de culpado antes de condenação.
+  - Propaganda do escritório dele (contrate, chame no WhatsApp) não entra.
+
+### 3. `{ED}/legenda.txt`
+Até 6 linhas para o Nei aprovar no Telegram:
+- linha 1: título sugerido para o YouTube, até 70 caracteres, com gancho;
+- linhas 2 a 4: os números principais com quem disse;
+- linha 5: "Não substitui orientação de um advogado."
+
+### 4. `{ED}/sugestao.txt` (opcional)
+Se, nos títulos ou transcrições, outro advogado ou jurista CONSOLIDADO e confiável aparecer em destaque, escreva uma linha com nome, canal e motivo. Consolidado quer dizer advogado com OAB, professor de direito, promotor, juiz ou jurista reconhecido, com anos de canal e grande audiência; nunca emergente nem quem vende causa ganha. É só sugestão: não inclua essa pessoa no vídeo.
+
+### Sem pauta
+Se não houver nada relevante (nenhum número ou fato forte, só repetição ou conteúdo publicitário), grave apenas `{ED}/SEM_PAUTA.txt` com uma linha explicando o motivo. Melhor não publicar do que publicar morno.

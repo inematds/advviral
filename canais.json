@@ -1,0 +1,17 @@
+{
+  "_como_editar": "Para incluir ou tirar alguém, edite esta lista (ou peça ao Claude). 'ativo': false pausa sem apagar. 'handle' é o caminho do canal no YouTube (@handle ou channel/UC...). Quem entra por sugestão do sistema precisa ser advogado com OAB, professor, promotor, juiz ou jurista reconhecido, consolidado e confiável, nunca emergente nem quem vende causa ganha; a sugestão vem no bot e só entra com o ok do Nei.",
+  "_ranking": "Sem ranking oficial de influenciadores jurídicos: busca no YouTube por tema do cidadão (consumidor, previdência, trabalho, família, imóvel, golpes, dívidas) e medição própria com yt-dlp em 13/10/2026 (inscritos, frequência e views): ver pesquisa/influenciadores.md.",
+  "_nota_neutralidade": "Vários canais comentam eleição, STF, governo e reforma (ex.: William Carvalho, Escobar, Magalhães & Moreno). O roteiro relata e atribui, sem lado e sem opinião do Nei; proposta não é lei em vigor (auto/roteiro.md).",
+  "canais": [
+    {"handle": "channel/UCXQBMoJ6s5PgkaEzg294FWQ", "nome": "Escobar Advogados", "rk": "ADVOCACIA · PREVIDÊNCIA", "ativo": true},
+    {"handle": "channel/UCgE_5GzAviE4Y2gkTmjE-6g", "nome": "Ingrácio Advocacia", "rk": "ADVOCACIA · PREVIDÊNCIA", "ativo": true},
+    {"handle": "channel/UCTVvUamICqO7GaHEPDQ7DgQ", "nome": "Seus Direitos", "rk": "DIREITO DO CONSUMIDOR", "ativo": true},
+    {"handle": "channel/UCVP0xOOjpDYqPHRVezH1O4w", "nome": "Advogado Ricardo Reis", "rk": "ADVOGADO · DÍVIDAS E CONSUMIDOR", "ativo": true},
+    {"handle": "channel/UCagpU-I7EW5fJ_0582CuTVA", "nome": "Dr. Rafaél Batista", "rk": "ADVOGADO · BANCOS E DÍVIDAS", "ativo": true},
+    {"handle": "channel/UCQIkSNCouzSJm5mxz700mcw", "nome": "Advogado William Carvalho", "rk": "ADVOGADO · TRABALHO E PREVIDÊNCIA", "ativo": true},
+    {"handle": "channel/UCzpQJqwAjdNcY83VVQGhKVg", "nome": "Magalhães & Moreno Advogados", "rk": "ADVOCACIA · TRABALHO", "ativo": true},
+    {"handle": "channel/UC4I7b9o935chtk3rJSCcHUw", "nome": "Seu Direito Online", "rk": "DIREITO IMOBILIÁRIO E TRIBUTÁRIO", "ativo": true},
+    {"handle": "channel/UC6gbJHQgHeaeVscLMgi8Qaw", "nome": "Marcello Benevides Advogados", "rk": "ADVOCACIA · FAMÍLIA, IMÓVEL E EMPRESA", "ativo": true},
+    {"handle": "channel/UCqaPjjCjIRqeOlunUJM1xnw", "nome": "Dr. José Milagre", "rk": "ADVOGADO · DIREITO DIGITAL E GOLPES", "ativo": true}
+  ]
+}

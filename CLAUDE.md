@@ -2,6 +2,8 @@
 
 Conta/autor: `inematds <inematds@gmail.com>`, repo `inematds/advviral`. Fluxo e agenda: README.md. Base de cada edição: `edicoes/<ed>/base.md`. Projetos irmãos (mesmo motor): `~/projetos/saudeviral` (de onde foi clonado) e `~/projetos/finviral`.
 
+- Base do que já foi publicado: `auto/usados.tsv` (local, fora do git; `auto/usados.py ids|recentes|registrar`, igual ao finviral). Cada edição publicada registra só os vídeos CITADOS no base.md, com o assunto; o diário exclui esses vídeos e recebe no prompt os assuntos dos últimos 7 dias. Assunto repetido por OUTRO canal pode (outro ponto de vista): a fala liga os dois ("o Fulano também falou sobre isso") e mostra o que muda; só não reconta igual. (Nei, 14/10/2026)
+
 - Criado em 13/10/2026 a pedido do Nei: "vamos criar um novo nicho chamado advviral sobre área de direito, os principais juristas e pessoas de direito que viralizam e que agregam para as pessoas … criar um repo, postar no portal e já criar o vídeo como você faz com o saudeviral; o canal pode ser o mesmo do saudeviral". Sai SEMPRE com o avatar HeyGen, é PUBLICADO no YouTube **INEMA TIA (lives2)** por `auto/publicar.sh` (yt-pubx) e vai SEMPRE ao bot v3 com o link. A versão com foto (avatar falhou) só vai ao bot.
 - **Canal trocado em 14/10/2026:** do lives12 (Inema Pro, junto do saudeviral) para o **lives2 (INEMA TIA), junto do finviral**, a pedido do Nei ("o advviral coloca junto no lives2"). Marca na tela do longo: "INEMA TIA · RADAR DIREITO".
 - Agenda (systemd usuário, `systemd/`): diário seg–sex 08:00, semanal sáb 08:00, domingo dom 08:00 → `auto/rodar.sh <modo>`. 08:00 para não disputar GPU/Whisper e o perfil do HeyGen com o finviral (02:00) e o saudeviral (05:00). Avulso: `auto/rodar.sh <modo> <data>`.

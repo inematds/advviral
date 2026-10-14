@@ -22,7 +22,7 @@ Complete guide (landing page + step-by-step instructions): **https://inematds.gi
 3. **Verification (`auto/checar.py`):** checks that each excerpt in `base.md` actually appears in the transcript. It also checks that the dialogue spells out numbers, that the images exist, that the CTA is present, and that “Não substitui orientação de um advogado” appears. If it fails, the script goes back for one correction. If it fails again, the video is not made.
 4. **Avatar:** HeyGen generates Nei’s avatar through the studio (subscription, no generation API). If it fails, a version with Nei’s photo and voice (Chatterbox) is produced.
 5. **Video:** `motor/palco.html` is rendered frame by frame with Playwright, including counters, a stamp, word-by-word captions, and a source in every scene. The avatar appears in the corner.
-6. **Publishing:** the video is published on YouTube **Inema Pro (lives12)** using `yt-pubx` (`auto/publicar.sh`) and is always sent to the v3 bot on Telegram, with the link. If the avatar fails, only the photo version is sent to the bot.
+6. **Publishing:** the video is published on YouTube **INEMA TIA (lives2)** using `yt-pubx` (`auto/publicar.sh`) and is always sent to the v3 bot on Telegram, with the link. If the avatar fails, only the photo version is sent to the bot.
 7. **Saturday and Sunday — the long 16:9 video:** after the short video, “A semana explicada” is produced (5 to 7 minutes, one chapter per influencer), with animated scenes from explicavideo v2 (`motor/longo.html`, `auto/roteiro-longo.md`, `auto/checar.py --longo`, `auto/longo.sh`).
 
 ## Schedule (systemd, user)
@@ -33,7 +33,7 @@ Complete guide (landing page + step-by-step instructions): **https://inematds.gi
 | Saturday, 08:00 | `semanal` | 90 s to 2 min: weekly recap + long 16:9 “A semana explicada” |
 | Sunday, 08:00 | `domingo` | ~90 s: the week’s rights, changes, and pitfalls + long 16:9 |
 
-The time is set to 08:00 to avoid competing for the GPU and HeyGen with finviral (02:00) and saudeviral (05:00). The v3 bot always receives one of three things: the video (with the lives12 link), “sem pauta,” or “falhou em X”.
+The time is set to 08:00 to avoid competing for the GPU and HeyGen with finviral (02:00) and saudeviral (05:00). The v3 bot always receives one of three things: the video (with the lives2 link), “sem pauta,” or “falhou em X”.
 
 ```bash
 cp systemd/advviral-* ~/.config/systemd/user/ && systemctl --user daemon-reload

@@ -22,7 +22,7 @@ Guía completa (landing + paso a paso): **https://inematds.github.io/advviral/gu
 3. **Verificación (`auto/checar.py`):** comprueba que cada fragmento de `base.md` aparezca realmente en la transcripción. También comprueba que las cifras del diálogo estén escritas con palabras, que las imágenes existan, que el CTA esté presente y que aparezca «No sustituye la orientación de un abogado». Si no aprueba, el guion vuelve una vez para corregirse. Si vuelve a fallar, no se produce el vídeo.
 4. **Avatar:** HeyGen genera el avatar de Nei desde el estudio (suscripción, sin API de generación). Si falla, se crea la versión con la foto y la voz de Nei (Chatterbox).
 5. **Vídeo:** `motor/palco.html` se renderiza cuadro a cuadro con Playwright, con contadores, sello, subtítulos palabra por palabra y la fuente en cada escena. El avatar aparece en una esquina.
-6. **Publicación:** el vídeo se publica en YouTube **Inema Pro (lives12)** mediante `yt-pubx` (`auto/publicar.sh`) y siempre se envía al bot v3 de Telegram con el enlace. Si falla el avatar, la versión con foto solo se envía al bot.
+6. **Publicación:** el vídeo se publica en YouTube **INEMA TIA (lives2)** mediante `yt-pubx` (`auto/publicar.sh`) y siempre se envía al bot v3 de Telegram con el enlace. Si falla el avatar, la versión con foto solo se envía al bot.
 7. **Sábado y domingo — el vídeo largo 16:9:** después del corto, se publica «La semana explicada» (de 5 a 7 min, un capítulo por influenciador), con las escenas animadas de explicavideo v2 (`motor/longo.html`, `auto/roteiro-longo.md`, `auto/checar.py --longo`, `auto/longo.sh`).
 
 ## Agenda (systemd, usuario)
@@ -33,7 +33,7 @@ Guía completa (landing + paso a paso): **https://inematds.github.io/advviral/gu
 | Sábado, 08:00 | `semanal` | 90 s a 2 min: resumen de la semana + vídeo largo 16:9 «La semana explicada» |
 | Domingo, 08:00 | `domingo` | ~90 s: los derechos, los cambios y las trampas de la semana + vídeo largo 16:9 |
 
-El horario es a las 08:00 para no competir por la GPU y HeyGen con finviral (02:00) y saudeviral (05:00). El bot v3 siempre recibe una de estas tres cosas: el vídeo (con el enlace de lives12), «sin tema» o «falló en X».
+El horario es a las 08:00 para no competir por la GPU y HeyGen con finviral (02:00) y saudeviral (05:00). El bot v3 siempre recibe una de estas tres cosas: el vídeo (con el enlace de lives2), «sin tema» o «falló en X».
 
 ```bash
 cp systemd/advviral-* ~/.config/systemd/user/ && systemctl --user daemon-reload

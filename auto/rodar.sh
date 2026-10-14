@@ -4,9 +4,9 @@
 #   diario  = vídeos de ontem e anteontem ainda não usados (40–60 s)
 #   semanal = balanço da semana (7 dias até ontem), 90 s a 2 min   [sábado]
 # Teste: SEM_AVATAR=1 pula o HeyGen; SEM_BOT=1 só simula o envio (e não publica); SEM_LONGO=1 pula o longo.
-# Publica no YouTube Inema Pro (lives12) e manda sempre ao bot v3 (auto/publicar.sh). Sáb/dom: + LONGO 16:9 (auto/longo.sh).
+# Publica no YouTube INEMA TIA (lives2) e manda sempre ao bot v3 (auto/publicar.sh). Sáb/dom: + LONGO 16:9 (auto/longo.sh).
 #   domingo = a semana que passou + o que eles esperam para a próxima, ~90 s   [domingo]
-# Sempre manda algo ao bot v3: o vídeo (com o link do lives12), "sem pauta" ou "falhou em X".
+# Sempre manda algo ao bot v3: o vídeo (com o link do lives2), "sem pauta" ou "falhou em X".
 set -uo pipefail
 RAIZ="$(cd "$(dirname "$0")/.." && pwd)"
 MODO="${1:?modo: diario|semanal|domingo}"; DIA="${2:-$(date +%F)}"
@@ -132,7 +132,7 @@ else
     && bash "$RAIZ/motor/montar.sh" "$ED" "$ED/video.mp4" || avisar "falhou também a versão com foto (ver $LOG)"
 fi
 
-# 5. publica no YouTube Inema Pro (lives12) e manda SEMPRE ao bot v3 (autorizado pelo Nei em 10/10/2026)
+# 5. publica no YouTube INEMA TIA (lives2) e manda SEMPRE ao bot v3 (autorizado pelo Nei em 10/10/2026)
 #    a versão com foto (avatar falhou) e os testes só vão ao bot
 SUG=""; [ -s "$ED/sugestao.txt" ] && SUG="
 Sugestão de influenciador: $(head -c 300 "$ED/sugestao.txt")"

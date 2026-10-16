@@ -19,14 +19,23 @@ pal = cs.transcrever(wav, A / "t", palavras=True)
 ouv = [(w, i) for i, p in enumerate(pal) for w in cs.norm(p["word"])]
 esp = [(w, k) for k, f in enumerate(falas) for w in cs.norm(f["fala"])]
 m = difflib.SequenceMatcher(None, [w for w, _ in esp], [w for w, _ in ouv], autojunk=False)
-fala_de = {}  # índice da palavra ouvida → fala
+fala_de, pos_de = {}, {}  # índice da palavra ouvida → fala / posição no roteiro
 for a, b, n in m.get_matching_blocks():
     for j in range(n):
         fala_de.setdefault(ouv[b + j][1], esp[a + j][1])
-atual, dono = 0, []
-for i in range(len(pal)):  # palavra sem par fica com a fala da vizinha anterior
-    atual = fala_de.get(i, atual)
-    dono.append(atual)
+        pos_de.setdefault(ouv[b + j][1], a + j)
+ultima = {k: max(p for p, (_, kk) in enumerate(esp) if kk == k) for k in range(len(falas))}
+dono, ant = [], None  # ant = última palavra com par
+for i in range(len(pal)):  # palavra sem par fica com a fala da vizinha anterior...
+    if i in fala_de:
+        dono.append(fala_de[i]); ant = i; continue
+    prox = next((j for j in range(i + 1, len(pal)) if j in fala_de), None)
+    # ...menos quando a anterior já fechou a fala dela: aí é o começo da seguinte ("Vazinhos" ≠ "Vasinhos" no
+    # saudeviral 16/10 ia para a fala de antes e o corte da virada caía entre "Vasinhos" e "roxos")
+    if ant is not None and prox is not None and pos_de[ant] == ultima[fala_de[ant]] and fala_de[prox] > fala_de[ant]:
+        dono.append(fala_de[prox])
+    else:
+        dono.append(fala_de[ant] if ant is not None else 0)
 
 tempos = []
 for k, f in enumerate(falas):
@@ -47,10 +56,33 @@ while k < len(tempos):
         fim_run += 1
     t0 = tempos[k - 1]["palavras"][-1]["f"] if k > 0 else 0.0
     t1 = tempos[fim_run]["palavras"][0]["t"] if fim_run < len(tempos) else cs.dur(wav)
+    # 2ª chance: transcreve só o trecho pulado (finviral 14/10: f10–f11 sem texto; recortado, o Whisper ouviu tudo)
+    ini_c, fim_c = max(t0 - 0.3, 0), t1 + 1.0
+    trecho = A / f"lacuna-{k}.wav"
+    subprocess.run(["ffmpeg", "-y", "-v", "error", "-ss", f"{ini_c:.3f}", "-to", f"{fim_c:.3f}", "-i", wav, trecho], check=True)
+    try:
+        pal2 = cs.transcrever(trecho, A / f"t-lacuna-{k}", palavras=True)
+    except Exception as e:
+        print("aviso: 2ª transcrição falhou:", e); pal2 = []
+    ouv2 = [(w, i) for i, p in enumerate(pal2) for w in cs.norm(p["word"])]
+    esp2 = [(w, j) for j in range(k, fim_run) for w in cs.norm(falas[j]["fala"])]
+    m2 = difflib.SequenceMatcher(None, [w for w, _ in esp2], [w for w, _ in ouv2], autojunk=False)
+    achou = {}
+    for a, b, n in m2.get_matching_blocks():
+        for q in range(n):
+            achou.setdefault(ouv2[b + q][1], esp2[a + q][1])
+    if all(j in achou.values() for j in range(k, fim_run)):
+        for i2, p in enumerate(pal2):
+            if i2 in achou:
+                tempos[achou[i2]]["palavras"].append({"w": p["word"].strip(), "t": round(p["start"] + ini_c, 3), "f": round(p["end"] + ini_c, 3)})
+        print("aviso: fala(s)", [tempos[j]["id"] for j in range(k, fim_run)], f"pulada(s) pelo Whisper; retranscrita(s) no trecho {ini_c:.1f}–{fim_c:.1f} s")
+        k = fim_run
+        continue
     ws = [(j, w) for j in range(k, fim_run) for w in falas[j]["fala"].split()]
     passo = max(t1 - t0, 0.3 * len(ws)) / max(len(ws), 1)
     for n, (j, w) in enumerate(ws):
         tempos[j]["palavras"].append({"w": w, "t": round(t0 + n * passo, 3), "f": round(t0 + (n + 1) * passo, 3)})
+        tempos[j]["interpolada"] = True  # tempo chutado: o gerar_cena.py não corta virada encostada nela
     print("aviso: fala(s)", [tempos[j]["id"] for j in range(k, fim_run)], f"sem transcrição; interpolada(s) em {t0:.1f}–{t1:.1f} s")
     k = fim_run
 for k, t in enumerate(tempos):

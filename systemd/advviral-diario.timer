@@ -2,7 +2,7 @@
 Description=advviral — diario às 05:00
 
 [Timer]
-OnCalendar=Mon..Fri *-*-* 08:00:00
+OnCalendar=Mon..Fri *-*-* 06:00:00
 Persistent=false
 
 [Install]

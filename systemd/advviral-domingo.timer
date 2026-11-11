@@ -2,7 +2,7 @@
 Description=advviral — domingo às 05:00
 
 [Timer]
-OnCalendar=Sun *-*-* 08:00:00
+OnCalendar=Sun *-*-* 06:00:00
 Persistent=false
 
 [Install]

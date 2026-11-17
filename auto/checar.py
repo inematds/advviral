@@ -64,8 +64,11 @@ if not LONGO:
     nass = [f.get("assunto") for f in _F if f.get("assunto")]
     if len(nass) < MIN_ASS:
         erros.append(f"{len(nass)} falas com \"assunto\" (a 1ª fala de cada assunto; mínimo {MIN_ASS})")
-    if any(len(a) > 24 for a in nass):
-        erros.append("\"assunto\" com mais de 24 letras (não cabe no cartão)")
+    for f in _F:
+        assunto = f.get("assunto", "")
+        if len(assunto) > 24:
+            erros.append(f'{f.get("id")}: "assunto" {assunto!r} tem {len(assunto)} caracteres; '
+                         'máximo 24, contando espaços e pontuação. Encurte só esse título, preservando a fala.')
 
 # roteiro.json
 try:

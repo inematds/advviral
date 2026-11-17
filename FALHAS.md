@@ -2,6 +2,7 @@
 
 | data | o que quebrou | menor correção | prompt \| infra |
 |---|---|---|---|
+| 2026-11-17 | Diário parou por assunto de 27 caracteres; correção automática não identificou o título | Encurtado o cartão f13; portão informa fala, texto e contagem, prompt exige contar espaços | prompt |
 | 2026-10-26 | aviso "já publicados nos últimos 7 dias" quebrava (`agora: command not found`): aspas retas do exemplo fechavam o texto do INSTR | aspas do exemplo trocadas por « » (1 linha no rodar.sh) | prompt |
 | 2026-10-13 | avatar da validação travou no estúdio (waitForURL 60 s): o título ADVVIRAL-2026-10-13-diario já tinha rascunho da rodada real e o script "continuou dele" | VALIDAR=1 usa título com -validacao | infra |
 | 2026-10-13 | avatar leu "consumidor ponto gov ponto bê erre" (o Nei: gov.br se diz "gov br") | regra no roteiro.md + checar.py reprova "ponto gov" na fala (nos três motores) | prompt |

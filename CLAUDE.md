@@ -21,6 +21,8 @@ When I correct you, or you catch yourself making a mistake: before continuing, a
 
 ## Lessons
 
+- Cartão de assunto: máximo 24 caracteres incluindo espaços; antes de entregar, medir cada título com len(), sem alterar o texto falado. (17/11/2026)
+
 - Tratar por "você" (nunca "tu/teu/ti/te prepara") e CTA SEMPRE só o inema.club — nada de "segue o canal", vídeo longo ou canal do YouTube; o portão (checar.py / rodar.sh) reprova. (Nei, 11/10/2026)
 - Motor do curto: f1 com hero não leva numero/ficha/caixa (ficava número sobre número); o numero entra no início da fala e fica até o próximo visual (senão a parte de cima fica vazia); legenda cola número partido pelo Whisper ("7 ,7 %" → "7,7%"). (11/10/2026)
 - Narração e pergunta tratam por "você", nunca "tu"/"teu"/"te prepara" (pedido do Nei, 10/10/2026). A edição de referência foi convertida também, porque o modelo copia o tom dela.
